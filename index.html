@@ -2,26 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cine-Search Pro</title>
-    <link rel="stylesheet" href="CSS/styles.css">
-    <script src="JS/app.js"></script>
+    <title>CineSearch Pro</title>
+    <link rel="stylesheet" href="/CSS/styles.css">
 </head>
 <body>
-        <div class="container">
-        <header>
-            <h1>CineSearch Pro</h1>
-            <div class="search-container">
-                <input 
-                    type="text" 
-                    id="searchInput" 
-                    placeholder="Search for movies..." 
-                    autocomplete="off"
-                    aria-label="Search movies"
-                >
-                <div class="search-icon">🔍</div>
-            </div>
-        </header>
-</div>
+    <div class="app" data-loading="false">
+        <input type="text" id="searchInput" placeholder="Search movies...">
+        
+        <template id="movieTemplate">
+            <li class="movie-item">
+                <div class="movie-title"></div>
+                <div class="movie-year"></div>
+            </li>
+        </template>
+        <ul class="results-list"></ul>
+        
+        <div id="details"></div>
+        <div id="credits"></div>
+        <div id="videos"></div>
+        
+        <div class="spinner"></div>
+    </div>
+    
+    <script src="/JS/app.js"></script>
+    <script src="/JS/config.js"></script>
 </body>
-</html>        
+</html>
