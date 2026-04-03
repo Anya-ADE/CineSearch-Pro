@@ -1,19 +1,28 @@
-.app[data-loading="true"] .spinner { display: block; }
-.app[data-loading="false"] .spinner { display: none; }
-.spinner {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    width: 40px;
-    height: 40px;
-    border: 3px solid #f3f3f3;
-    border-top: 3px solid #3498db;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    display: none;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.movie-item { cursor: pointer; padding: 8px; border-bottom: 1px solid #ccc; }
-.movie-item.active { background: #f0f0f0; }
-.highlight { background: yellow; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#fff;font-family:system-ui;padding:20px}
+.app{max-width:1200px;margin:0 auto}
+#searchInput{width:100%;padding:12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;margin-bottom:20px}
+#searchInput:focus{outline:none;border-color:#667eea}
+.app[data-loading="true"] .spinner{display:block}
+.app[data-loading="false"] .spinner{display:none}
+.spinner{position:fixed;top:50%;left:50%;width:40px;height:40px;border:3px solid #333;border-top-color:#667eea;border-radius:50%;animation:spin 1s linear infinite;display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+.results-list{list-style:none;margin-bottom:30px;max-height:400px;overflow-y:auto}
+.movie-item{background:#1a1a1a;padding:12px;margin-bottom:8px;border-radius:6px;cursor:pointer;border:1px solid #333}
+.movie-item:hover,.movie-item.active{background:#222;border-color:#667eea}
+.movie-title{font-weight:600;margin-bottom:4px}
+.movie-year{font-size:12px;color:#888}
+.movie-rating{font-size:12px;color:#fbbf24;margin-top:4px}
+.highlight{background:#fbbf24;color:#000;padding:0 2px;border-radius:3px}
+#details,#credits,#videos{background:#1a1a1a;padding:15px;margin-top:15px;border-radius:6px;border:1px solid #333}
+.detail-content p{margin:8px 0}
+.detail-content ul{list-style:none;padding-left:0}
+.detail-content li{padding:4px 0;border-bottom:1px solid #333}
+a{display:inline-block;background:#667eea;color:#fff;text-decoration:none;padding:8px 16px;border-radius:5px;margin-top:8px}
+a:hover{background:#5a67d8}
+.error{color:#fc8181;padding:10px;background:rgba(252,129,129,0.1);border-radius:5px}
+.empty-message{text-align:center;padding:40px;color:#666}
+.results-list::-webkit-scrollbar{width:8px}
+.results-list::-webkit-scrollbar-track{background:#1a1a1a;border-radius:4px}
+.results-list::-webkit-scrollbar-thumb{background:#444;border-radius:4px}
+.results-list::-webkit-scrollbar-thumb:hover{background:#667eea}

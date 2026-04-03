@@ -78,6 +78,15 @@ class CineSearch {
         this.results = movies;
         this.activeIndex = -1;
         
+        if (!movies || movies.length === 0) {
+            const emptyMsg = document.createElement('li');
+            emptyMsg.textContent = 'No movies found';
+            emptyMsg.className = 'empty-message';
+            this.resultsList.innerHTML = '';
+            this.resultsList.appendChild(emptyMsg);
+            return;
+        }
+        
         const fragment = new DocumentFragment();
         
         movies.forEach(movie => {
@@ -133,19 +142,37 @@ class CineSearch {
             fetch(`${BASE_URL}/movie/${movie.id}/videos?api_key=${API_KEY}`).then(r => r.ok ? r.json() : Promise.reject())
         ]);
         
-        document.getElementById('details').innerHTML = results[0].status === 'fulfilled' ? 
-            `<h3>${results[0].value.title}</h3><p>${results[0].value.overview || ''}</p>` : 
-            '<p>Details unavailable</p>';
+        // Details
+        if (results[0].status === 'fulfilled') {
+            const m = results[0].value;
+            document.getElementById('details').innerHTML = `
+                <h3>${m.title}</h3>
+                <p><strong>Rating:</strong> ${m.vote_average ? m.vote_average.toFixed(1) : 'N/A'}/10</p>
+                <p><strong>Release:</strong> ${m.release_date || 'Unknown'}</p>
+                <p><strong>Overview:</strong> ${m.overview || 'No overview'}</p>
+                <p><strong>Genres:</strong> ${m.genres ? m.genres.map(g => g.name).join(', ') : 'N/A'}</p>
+            `;
+        } else {
+            document.getElementById('details').innerHTML = '<div class="error">Failed to load details</div>';
+        }
         
-        document.getElementById('credits').innerHTML = results[1].status === 'fulfilled' && results[1].value.cast ? 
-            `<h3>Cast</h3><ul>${results[1].value.cast.slice(0,5).map(a => `<li>${a.name}</li>`).join('')}</ul>` : 
-            '<p>Credits unavailable</p>';
+        // Credits
+        if (results[1].status === 'fulfilled' && results[1].value.cast) {
+            const cast = results[1].value.cast.slice(0, 5);
+            document.getElementById('credits').innerHTML = `
+                <h3>Cast</h3>
+                <ul>${cast.map(a => `<li>${a.name}</li>`).join('')}</ul>
+            `;
+        } else {
+            document.getElementById('credits').innerHTML = '<div class="error">Failed to load credits</div>';
+        }
         
+        // Videos
         const trailer = results[2].status === 'fulfilled' && results[2].value.results?.length ? 
             results[2].value.results.find(v => v.type === 'Trailer') || results[2].value.results[0] : null;
         document.getElementById('videos').innerHTML = trailer ? 
-            `<a href="https://www.youtube.com/watch?v=${trailer.key}" target="_blank">Watch Trailer</a>` : 
-            '<p>No trailer</p>';
+            `<h3>Trailer</h3><a href="https://www.youtube.com/watch?v=${trailer.key}" target="_blank">Watch Trailer</a>` : 
+            '<div class="error">No trailer available</div>';
         
         this.app.dataset.loading = 'false';
     }

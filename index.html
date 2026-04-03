@@ -2,29 +2,52 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CineSearch Pro</title>
     <link rel="stylesheet" href="/CSS/styles.css">
 </head>
 <body>
     <div class="app" data-loading="false">
+        <h1>🎬 CineSearch Pro</h1>
+        
         <input type="text" id="searchInput" placeholder="Search movies...">
         
-        <template id="movieTemplate">
-            <li class="movie-item">
-                <div class="movie-title"></div>
-                <div class="movie-year"></div>
-            </li>
-        </template>
-        <ul class="results-list"></ul>
+        <div class="results-container">
+            <h3>Search Results</h3>
+            <template id="movieTemplate">
+                <li class="movie-item">
+                    <div class="movie-title"></div>
+                    <div class="movie-year"></div>
+                    <div class="movie-rating"></div>
+                </li>
+            </template>
+            <ul class="results-list"></ul>
+        </div>
         
-        <div id="details"></div>
-        <div id="credits"></div>
-        <div id="videos"></div>
+        <div class="details-container">
+            <h2>Movie Details</h2>
+            <div class="details-grid">
+                <div class="detail-card" id="details">
+                    <h3>📖 About</h3>
+                    <div class="detail-content"></div>
+                </div>
+                
+                <div class="detail-card" id="credits">
+                    <h3>🎭 Cast</h3>
+                    <div class="detail-content"></div>
+                </div>
+                
+                <div class="detail-card" id="videos">
+                    <h3>🎬 Media</h3>
+                    <div class="detail-content"></div>
+                </div>
+            </div>
+        </div>
         
         <div class="spinner"></div>
     </div>
     
-    <script src="/JS/app.js"></script>
     <script src="/JS/config.js"></script>
+    <script src="/JS/app.js"></script>
 </body>
 </html>
